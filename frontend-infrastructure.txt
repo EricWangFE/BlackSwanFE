@@ -1,0 +1,24 @@
+frontend/
+├── src/
+│   ├── app/                    # Next.js 14 app directory
+│   │   ├── (auth)/            # Auth group routes
+│   │   ├── (dashboard)/       # Protected dashboard routes
+│   │   ├── api/               # API routes
+│   │   └── layout.tsx         # Root layout
+│   ├── components/
+│   │   ├── alerts/            # Alert-specific components
+│   │   ├── charts/            # Chart components
+│   │   ├── ui/                # shadcn/ui components
+│   │   └── providers/         # Context providers
+│   ├── hooks/                 # Custom React hooks
+│   ├── lib/                   # Utilities
+│   │   ├── api/              # API client
+│   │   ├── auth/             # Auth helpers
+│   │   └── websocket/        # WebSocket management
+│   ├── stores/               # Zustand stores
+│   └── types/                # TypeScript definitions
+├── public/                   # Static assets
+├── tests/                    # Testing files
+│   ├── e2e/                 # Playwright tests
+│   └── unit/                # Vitest unit tests
+└── edge-functions/          # Vercel Edge Functions

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "pip install -r requirements.txt"
+  },
+  "deploy": {
+    "startCommand": "uvicorn main:app --host 0.0.0.0 --port $PORT",
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 30,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3
+  },
+  "services": [
+    {
+      "name": "api",
+      "source": "backend",
+      "startCommand": "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    },
+    {
+      "name": "celery-worker",
+      "source": "backend",
+      "startCommand": "celery -A config.celery_config:celery_app worker --loglevel=info --concurrency=4"
+    },
+    {
+      "name": "celery-beat",
+      "source": "backend",
+      "startCommand": "celery -A config.celery_config:celery_app beat --loglevel=info"
+    }
+  ]
+}

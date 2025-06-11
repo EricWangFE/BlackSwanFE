@@ -1,0 +1,23 @@
+backend/
+├── services/
+│   ├── api_gateway/           # Kong/FastAPI gateway
+│   ├── auth_service/          # Authentication microservice
+│   ├── ingestion_service/     # Data ingestion workers
+│   ├── sentiment_service/     # NLP processing
+│   ├── llm_orchestrator/      # LLM coordination
+│   ├── risk_engine/           # Risk calculation
+│   ├── alert_service/         # Alert dispatch
+│   └── trading_service/       # Trade execution
+├── shared/
+│   ├── models/               # Shared data models
+│   ├── utils/                # Common utilities
+│   ├── monitoring/           # Prometheus exporters
+│   └── middleware/           # Common middleware
+├── infrastructure/
+│   ├── docker/              # Dockerfiles
+│   ├── k8s/                 # Kubernetes configs
+│   └── terraform/           # Infrastructure as code
+└── tests/
+    ├── unit/
+    ├── integration/
+    └── load/
