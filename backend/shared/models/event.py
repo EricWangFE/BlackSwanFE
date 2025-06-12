@@ -34,7 +34,7 @@ class ProcessedEvent(EventModel):
 class AlertEvent(ProcessedEvent):
     """Event that triggered an alert"""
     alert_id: UUID = Field(default_factory=uuid4)
-    severity: str = Field(..., regex="^(low|medium|high|critical)$")
+    severity: str = Field(..., pattern="^(low|medium|high|critical)$")
     confidence: float = Field(..., ge=0, le=1)
     risk_factors: List[str] = Field(default_factory=list)
     recommended_actions: List[str] = Field(default_factory=list)
