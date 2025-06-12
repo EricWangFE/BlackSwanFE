@@ -111,13 +111,8 @@ jobs:
       run: |
         # Validate .replit is valid TOML
         if command -v python3 &> /dev/null; then
-          python3 -c "
-import toml
-with open('.replit', 'r') as f:
-    config = toml.load(f)
-print('.replit configuration is valid')
-print(f'Entry point: {config.get(\"run\", \"Not found\")}')
-"
+          pip install toml
+          python3 -c 'import toml; config = toml.load(open(".replit", "r")); print(".replit configuration is valid"); print("Entry point: " + str(config.get("run", "Not found")))'
         else
           echo "Python not available, skipping TOML validation"
         fi
