@@ -2,7 +2,7 @@
 import os
 import hashlib
 from typing import List, Dict, Optional
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pinecone
 import numpy as np
@@ -80,7 +80,7 @@ class EventVectorStore:
         # Build filter
         filter_dict = {}
         if time_window_days:
-            cutoff = (datetime.utcnow() - timedelta(days=time_window_days)).isoformat()
+            cutoff = (datetime.now(timezone.utc) - timedelta(days=time_window_days)).isoformat()
             filter_dict["timestamp"] = {"$gte": cutoff}
         
         # Query Pinecone

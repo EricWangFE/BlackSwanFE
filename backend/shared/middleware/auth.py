@@ -2,7 +2,7 @@
 from fastapi import HTTPException, Security, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 security = HTTPBearer()
 
@@ -18,7 +18,7 @@ class AuthMiddleware:
             payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
             
             # Check expiration
-            if payload.get("exp", 0) < datetime.utcnow().timestamp():
+            if payload.get("exp", 0) < datetime.now(timezone.utc).timestamp():
                 raise HTTPException(
                     status_code=status.HTTP_401_UNAUTHORIZED,
                     detail="Token expired"
@@ -33,13 +33,13 @@ class AuthMiddleware:
             )
     
     def create_access_token(self, user_id: str, role: str = "user") -> str:
-        expire = datetime.utcnow() + timedelta(hours=24)
+        expire = datetime.now(timezone.utc) + timedelta(hours=24)
         
         payload = {
             "sub": user_id,
             "role": role,
             "exp": expire,
-            "iat": datetime.utcnow()
+            "iat": datetime.now(timezone.utc)
         }
         
         return jwt.encode(payload, self.secret_key, algorithm=self.algorithm)
