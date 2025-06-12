@@ -65,10 +65,30 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
     
-    - name: Install dependencies
+    - name: Install dependencies with retry
       run: |
         cd frontend
-        npm ci
+        # Function to retry npm commands
+        retry_npm() {
+          local n=1
+          local max=3
+          local delay=15
+          while true; do
+            echo "Attempt $n/$max:"
+            if npm ci; then
+              echo "npm ci succeeded"
+              break
+            elif [ $n -lt $max ]; then
+              echo "npm ci failed. Retrying in $delay seconds..."
+              sleep $delay
+              ((n++))
+            else
+              echo "npm ci failed after $max attempts. Trying npm install..."
+              npm install || exit 1
+            fi
+          done
+        }
+        retry_npm
     
     - name: Type check
       run: |
