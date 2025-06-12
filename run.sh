@@ -36,7 +36,13 @@ sleep 5
 # Install frontend dependencies
 echo -e "${BLUE}Installing Frontend dependencies...${NC}"
 cd ../frontend
-npm install
+
+# Use retry script if available, otherwise fall back to npm install
+if [ -f ../scripts/npm-retry.sh ]; then
+    ../scripts/npm-retry.sh install
+else
+    npm install
+fi
 
 # Build frontend
 echo -e "${BLUE}Building Frontend...${NC}"

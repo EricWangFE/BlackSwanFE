@@ -169,6 +169,11 @@ git pull origin replit-deployment
 - Normal during startup, will reconnect
 - Check if backend is running on port 8000
 
+**npm install errors (504 Gateway Timeout)**
+- The app includes automatic retry logic
+- If manual install needed, use: `cd frontend && ../scripts/npm-retry.sh`
+- Or try: `npm cache clean --force && npm install`
+
 ### Debug Commands (Run in Shell)
 
 Check backend:
