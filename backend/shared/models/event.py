@@ -1,7 +1,7 @@
 """Event models for black swan detection"""
 
 from datetime import datetime, timezone
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 from uuid import UUID, uuid4
 
@@ -11,8 +11,8 @@ class EventModel(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     source: str = Field(..., description="Event source (twitter, reddit, news, etc)")
-    content: Dict[str, any] = Field(..., description="Raw event content")
-    metadata: Optional[Dict[str, any]] = Field(default_factory=dict)
+    content: Dict[str, Any] = Field(..., description="Raw event content")
+    metadata: Optional[Dict[str, Any]] = Field(default_factory=dict)
     
     class Config:
         json_encoders = {
