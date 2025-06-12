@@ -1,5 +1,5 @@
 // edge-functions/alert-aggregator.ts
-import { Redis } from '@vercel/kv';
+import { kv } from '@vercel/kv';
 
 export const config = {
   runtime: 'edge',
@@ -16,20 +16,15 @@ interface AlertMetrics {
   };
 }
 
-export default async function handler(request: Request) {
-  const redis = new Redis({
-    url: process.env.KV_REST_API_URL!,
-    token: process.env.KV_REST_API_TOKEN!,
-  });
-
+export default async function handler() {
   // Aggregate alerts from last hour
   const hourAgo = Date.now() - 3600000;
-  const alerts = await redis.zrangebyscore(
+  const alerts = await kv.zrange(
     'alerts:timeline',
     hourAgo,
     '+inf',
-    'WITHSCORES'
-  );
+    { byScore: true, withScores: true }
+  ) as string[];
 
   const metrics: AlertMetrics = {
     total: 0,
