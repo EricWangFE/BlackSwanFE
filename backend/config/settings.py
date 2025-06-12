@@ -8,13 +8,13 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     """Application settings"""
     
-    # Railway provides these automatically
-    database_url: str = os.getenv("DATABASE_URL", "")
+    # Database URLs
+    database_url: str = os.getenv("DATABASE_URL", "postgresql://replit:replit@localhost/blackswan")
     redis_url: str = os.getenv("REDIS_URL", "redis://localhost:6379")
     port: int = int(os.getenv("PORT", "8000"))
     
     # Environment
-    environment: str = os.getenv("RAILWAY_ENVIRONMENT", "production")
+    environment: str = os.getenv("REPL_SLUG", "production")
     
     # Authentication
     jwt_secret_key: str = os.getenv("JWT_SECRET_KEY", "change-this-in-production")

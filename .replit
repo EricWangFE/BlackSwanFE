@@ -1,0 +1,43 @@
+# Replit configuration for Black Swan Event Detection
+
+run = "bash run.sh"
+hidden = [".pythonlibs", "venv", ".next", "node_modules"]
+
+[nix]
+channel = "stable-23_05"
+
+[env]
+PYTHONPATH = "$PYTHONPATH:./backend"
+NODE_ENV = "production"
+
+[packager]
+language = "python3"
+
+[packager.features]
+enabledForHosting = true
+packageSearch = true
+guessImports = true
+
+[[ports]]
+localPort = 8000
+externalPort = 8000
+exposeLocalhost = true
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+exposeLocalhost = true
+
+[languages]
+
+[languages.python3]
+pattern = "**/*.py"
+
+[languages.python3.languageServer]
+start = "pylsp"
+
+[languages.javascript]
+pattern = "**/{*.js,*.jsx,*.ts,*.tsx}"
+
+[languages.javascript.languageServer]
+start = "typescript-language-server --stdio"

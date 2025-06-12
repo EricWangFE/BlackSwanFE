@@ -10,7 +10,8 @@ class SocketManager {
   connect(): void {
     if (this.socket?.connected) return
 
-    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:8000'
+    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 
+      (process.env.REPL_SLUG ? `wss://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co:8000` : 'http://localhost:8000')
     
     this.socket = io(socketUrl, {
       transports: ['websocket', 'polling'],
