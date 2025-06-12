@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AlertCircle, AlertTriangle, Info, XCircle } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
@@ -40,7 +40,7 @@ export function AlertFeed() {
   const { events, markAsRead, selectEvent } = useEventStore()
   const [isConnected, setIsConnected] = useState(false)
 
-  const { socket } = useWebSocket({
+  useWebSocket({
     onConnect: () => setIsConnected(true),
     onDisconnect: () => setIsConnected(false),
   })
@@ -81,7 +81,7 @@ export function AlertFeed() {
                 'rounded-lg border p-4 cursor-pointer transition-all hover:shadow-lg',
                 config.bg,
                 config.border,
-                config.pulse && 'animate-pulse-ring'
+                'pulse' in config && config.pulse && 'animate-pulse-ring'
               )}
               onClick={() => {
                 markAsRead(alert.id)
