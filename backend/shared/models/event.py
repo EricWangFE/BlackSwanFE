@@ -1,7 +1,7 @@
 """Event models for black swan detection"""
 
 from datetime import datetime, timezone
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 from pydantic import BaseModel, Field
 from uuid import UUID, uuid4
 
@@ -11,8 +11,8 @@ class EventModel(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     source: str = Field(..., description="Event source (twitter, reddit, news, etc)")
-    content: Dict[str, any] = Field(..., description="Raw event content")
-    metadata: Optional[Dict[str, any]] = Field(default_factory=dict)
+    content: Dict[str, Any] = Field(..., description="Raw event content")
+    metadata: Optional[Dict[str, Any]] = Field(default_factory=dict)
     
     class Config:
         json_encoders = {
@@ -34,7 +34,7 @@ class ProcessedEvent(EventModel):
 class AlertEvent(ProcessedEvent):
     """Event that triggered an alert"""
     alert_id: UUID = Field(default_factory=uuid4)
-    severity: str = Field(..., regex="^(low|medium|high|critical)$")
+    severity: str = Field(..., pattern="^(low|medium|high|critical)$")
     confidence: float = Field(..., ge=0, le=1)
     risk_factors: List[str] = Field(default_factory=list)
     recommended_actions: List[str] = Field(default_factory=list)
