@@ -32,7 +32,7 @@ Real-time cryptocurrency black swan event detection using multi-agent LLMs - now
    ```
 
 2. **Import the Repository**
-   - Replit will automatically import from the `replit-deployment` branch
+   - Replit will automatically import from the default branch
    - Wait for the import to complete (∼30 seconds)
 
 3. **Add Your API Keys**
@@ -126,7 +126,7 @@ Once deployed, your Black Swan system will:
 
 Or use Replit Shell:
 ```bash
-git pull origin replit-deployment
+git pull origin main
 ```
 
 ## 💰 Costs
@@ -218,7 +218,7 @@ tail -f logs/*.log
 2. Create your feature branch
 3. Make your changes
 4. Push to your fork
-5. Open a Pull Request to `replit-deployment` branch
+5. Open a Pull Request to `main` branch
 
 ## 📝 License
 
