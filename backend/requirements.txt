@@ -19,7 +19,8 @@ redis==4.6.0
 # LLM & AI
 anthropic==0.8.1
 openai==1.7.1
-sentence-transformers==2.2.2
+sentence-transformers==2.7.0
+huggingface-hub>=0.19.0,<0.24.0
 pinecone-client==2.2.4
 numpy==1.26.3
 
